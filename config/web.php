@@ -38,6 +38,13 @@ $config = [
                 ],
             ],
         ],
+        'formatter' => [
+            'timeZone' => 'Europe/Moscow',
+            'dateFormat' => 'd.MM.Y',
+            'timeFormat' => 'H:mm:ss',
+            //'datetimeFormat' => 'd.MM.Y HH:mm',
+            'datetimeFormat' => 'php:Y-m-d H:i:s',
+        ],
         'db' => $db,
         /*
         'urlManager' => [
