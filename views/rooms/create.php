@@ -28,6 +28,7 @@ if ( $modelSaved ) { ?>
 		Price per day: <?php echo Yii::$app->formatter->asCurrency( $model->price_per_day, 'EUR' ); ?> <br/>
 		Image:
 		<?php if ( isset( $model->fileImage ) ) { ?>
+				
 			<img src="<?php echo Url::to( '@uploadedfilesdir/' . $model->fileImage->name ) ?>"/>
 		<?php } ?>
 	</div>
