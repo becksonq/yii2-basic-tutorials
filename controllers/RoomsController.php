@@ -29,11 +29,11 @@ class RoomsController extends Controller
         $model = new Room();
         $modelCanSave = false;
 
-        if ($model->load( Yii::$app->request->post() ) && $model->validate()) {
+        if ( $model->load( Yii::$app->request->post() ) && $model->validate() ) {
 
             $model->fileImage = UploadedFile::getInstance( $model, 'fileImage' );
 
-            if ($model->fileImage) {
+            if ( $model->fileImage ) {
                 $model->fileImage->saveAs( Yii::getAlias( '@uploadedfilesdir/' . $model->fileImage->baseName . '.' . $model->fileImage->extension ) );
             }
 
@@ -56,17 +56,17 @@ class RoomsController extends Controller
             'price_per_day' => [ 'operator' => '', 'value' => '' ],
         ];
 
-        if (isset( $_POST[ 'SearchFilter' ] )) {
+        if ( isset( $_POST['SearchFilter'] ) ) {
 
             $fieldsList = [ 'floor', 'room_number', 'price_per_day' ];
 
             foreach ( $fieldsList as $field ) {
 
-                $fieldOperator = $_POST[ 'SearchFilter' ][ $field ][ 'operator' ];
-                $fieldValue = $_POST[ 'SearchFilter' ][ $field ][ 'value' ];
-                $searchFilter[ $field ] = [ 'operator' => $fieldOperator, 'value' => $fieldValue ];
+                $fieldOperator = $_POST['SearchFilter'][$field]['operator'];
+                $fieldValue = $_POST['SearchFilter'][$field]['value'];
+                $searchFilter[$field] = [ 'operator' => $fieldOperator, 'value' => $fieldValue ];
 
-                if ($fieldValue != '') {
+                if ( $fieldValue != '' ) {
                     $query->andWhere( [
                         $fieldOperator,
                         $field,
@@ -79,5 +79,25 @@ class RoomsController extends Controller
         $rooms = $query->all();
 
         return $this->render( 'indexFiltered', [ 'rooms' => $rooms, 'searchFilter' => $searchFilter ] );
+    }
+
+    public function actionLastReservationByRoomId( $room_id )
+    {
+        $room = Room::findOne( $room_id );
+        // equivalent to
+        // SELECT * FROM reservation WHERE room_id = $room_id
+        $lastReservation = $room->lastReservation;
+        // next times that we will call $room->reservation, no sql query will be executed.
+        return $this->render( 'lastReservationByRoomId', [ 'room' => $room, 'lastReservation' => $lastReservation ] );
+    }
+
+    public function actionLastReservationForEveryRoom()
+    {
+        $rooms = Room::find()
+            ->with( 'lastReservation' )
+            ->all();
+        return $this->render( 'lastReservationForEveryRoom', [
+            'rooms' => $rooms
+        ] );
     }
 }

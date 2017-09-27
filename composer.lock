@@ -4,40 +4,43 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d0ae91dd49c8a7d0b85d596e662463df",
+    "content-hash": "c6809dee0f657aac969a6b127fe3cb80",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
-            "version": "v3.3.7",
+            "version": "v4.0.0-beta1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "0b9c4a4007c44201dce9a6cc1a38407005c26c86"
+                "reference": "35f80bb12e4e71fd777ee60ffa43711d8f84b1a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/0b9c4a4007c44201dce9a6cc1a38407005c26c86",
-                "reference": "0b9c4a4007c44201dce9a6cc1a38407005c26c86",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/35f80bb12e4e71fd777ee60ffa43711d8f84b1a6",
+                "reference": "35f80bb12e4e71fd777ee60ffa43711d8f84b1a6",
                 "shasum": ""
             },
             "require": {
-                "bower-asset/jquery": ">=1.9.1,<4.0"
+                "bower-asset/jquery": ">=1.9.1",
+                "bower-asset/popper.js": ">=1.11.0,<2.0.0"
             },
             "type": "bower-asset-library",
             "extra": {
                 "bower-asset-main": [
-                    "less/bootstrap.less",
+                    "scss/bootstrap.scss",
                     "dist/js/bootstrap.js"
                 ],
                 "bower-asset-ignore": [
                     "/.*",
-                    "_config.yml",
-                    "CNAME",
-                    "composer.json",
-                    "CONTRIBUTING.md",
+                    "/_*",
+                    "about",
+                    "assets",
                     "docs",
                     "js/tests",
-                    "test-infra"
+                    "nuget",
+                    "CNAME",
+                    "composer.json",
+                    "Gruntfile.js"
                 ]
             },
             "license": [
@@ -49,12 +52,12 @@
                 "framework",
                 "front-end",
                 "js",
-                "less",
                 "mobile-first",
                 "responsive",
+                "sass",
                 "web"
             ],
-            "time": "2016-07-25T15:51:55+00:00"
+            "time": "2017-08-11T03:56:35+00:00"
         },
         {
             "name": "bower-asset/jquery",
@@ -149,6 +152,45 @@
             "time": "2017-08-24T08:08:54+00:00"
         },
         {
+            "name": "bower-asset/popper.js",
+            "version": "v1.12.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FezVrasta/popper.js.git",
+                "reference": "8a4f6e8936618ffcac1c1bd837ab4e5ab1de6726"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FezVrasta/popper.js/zipball/8a4f6e8936618ffcac1c1bd837ab4e5ab1de6726",
+                "reference": "8a4f6e8936618ffcac1c1bd837ab4e5ab1de6726",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "dist/umd/popper.js",
+                "bower-asset-ignore": [
+                    "**/.*",
+                    "node_modules",
+                    "bower_components",
+                    "tests"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "A kickass library to manage your poppers",
+            "keywords": [
+                "attached",
+                "component",
+                "drop",
+                "popover",
+                "popperjs",
+                "position",
+                "tooltip"
+            ],
+            "time": "2017-08-29T14:19:10+00:00"
+        },
+        {
             "name": "bower-asset/punycode",
             "version": "v1.3.2",
             "source": {
@@ -179,16 +221,16 @@
         },
         {
             "name": "bower-asset/yii2-pjax",
-            "version": "v2.0.6",
+            "version": "v2.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/jquery-pjax.git",
-                "reference": "60728da6ade5879e807a49ce59ef9a72039b8978"
+                "reference": "885fc8c2d36c93a801b6af0ee8ad55d79df97cb1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/jquery-pjax/zipball/60728da6ade5879e807a49ce59ef9a72039b8978",
-                "reference": "60728da6ade5879e807a49ce59ef9a72039b8978",
+                "url": "https://api.github.com/repos/yiisoft/jquery-pjax/zipball/885fc8c2d36c93a801b6af0ee8ad55d79df97cb1",
+                "reference": "885fc8c2d36c93a801b6af0ee8ad55d79df97cb1",
                 "shasum": ""
             },
             "require": {
@@ -210,7 +252,7 @@
             "license": [
                 "MIT"
             ],
-            "time": "2016-03-04T13:24:47+00:00"
+            "time": "2017-09-27T10:22:38+00:00"
         },
         {
             "name": "cebe/markdown",
@@ -475,21 +517,22 @@
         },
         {
             "name": "yiisoft/yii2-bootstrap",
-            "version": "2.0.6",
+            "version": "2.1.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-bootstrap.git",
-                "reference": "3fd2b8c950cce79d60e9702d6bcb24eb3c80f6c5"
+                "reference": "e33885e72afc334785e9c3ecdecc1b21104c4946"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/3fd2b8c950cce79d60e9702d6bcb24eb3c80f6c5",
-                "reference": "3fd2b8c950cce79d60e9702d6bcb24eb3c80f6c5",
+                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/e33885e72afc334785e9c3ecdecc1b21104c4946",
+                "reference": "e33885e72afc334785e9c3ecdecc1b21104c4946",
                 "shasum": ""
             },
             "require": {
-                "bower-asset/bootstrap": "3.3.* | 3.2.* | 3.1.*",
-                "yiisoft/yii2": ">=2.0.6"
+                "bower-asset/bootstrap": "~4.0.0@beta",
+                "bower-asset/popper.js": "~1.12.0",
+                "yiisoft/yii2": "~2.0.6"
             },
             "type": "yii2-extension",
             "extra": {
@@ -521,7 +564,7 @@
                 "bootstrap",
                 "yii2"
             ],
-            "time": "2016-03-17T03:29:28+00:00"
+            "time": "2017-08-15T21:59:46+00:00"
         },
         {
             "name": "yiisoft/yii2-composer",
@@ -3143,21 +3186,21 @@
         },
         {
             "name": "yiisoft/yii2-debug",
-            "version": "2.0.11",
+            "version": "2.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-debug.git",
-                "reference": "372fbf0d47303b7d68275d6720935e5116915418"
+                "reference": "55ed2e853ed8050a34415f63a4da84f88a56f895"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/372fbf0d47303b7d68275d6720935e5116915418",
-                "reference": "372fbf0d47303b7d68275d6720935e5116915418",
+                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/55ed2e853ed8050a34415f63a4da84f88a56f895",
+                "reference": "55ed2e853ed8050a34415f63a4da84f88a56f895",
                 "shasum": ""
             },
             "require": {
-                "yiisoft/yii2": "~2.0.11",
-                "yiisoft/yii2-bootstrap": "~2.0.0"
+                "yiisoft/yii2": ">=2.0.4",
+                "yiisoft/yii2-bootstrap": "*"
             },
             "type": "yii2-extension",
             "extra": {
@@ -3186,7 +3229,7 @@
                 "debugger",
                 "yii2"
             ],
-            "time": "2017-09-05T23:21:05+00:00"
+            "time": "2016-03-17T03:50:19+00:00"
         },
         {
             "name": "yiisoft/yii2-faker",
@@ -3291,7 +3334,10 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "yiisoft/yii2-bootstrap": 20,
+        "bower-asset/bootstrap": 15
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

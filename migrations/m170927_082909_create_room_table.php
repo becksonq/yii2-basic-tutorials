@@ -5,14 +5,14 @@ use yii\db\Migration;
 /**
  * Handles the creation of table `rooms`.
  */
-class m170927_082909_create_rooms_table extends Migration
+class m170927_082909_create_room_table extends Migration
 {
     /**
      * @inheritdoc
      */
     public function up()
     {
-        $this->createTable('rooms', [
+        $this->createTable('room', [
             'id'              => $this->primaryKey(),
             'floor'           => $this->integer(11)->notNull(),
             'room_number'     => $this->integer(11)->notNull(),
@@ -30,6 +30,6 @@ class m170927_082909_create_rooms_table extends Migration
      */
     public function down()
     {
-        $this->dropTable('rooms');
+        $this->dropTable('room');
     }
 }
