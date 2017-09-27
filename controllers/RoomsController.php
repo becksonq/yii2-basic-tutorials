@@ -93,8 +93,7 @@ class RoomsController extends Controller
 
     public function actionLastReservationForEveryRoom()
     {
-        $rooms = Room::find()
-            ->with( 'lastReservation' )
+        $rooms = Room::find()->with( 'lastReservation' )
             ->all();
         return $this->render( 'lastReservationForEveryRoom', [ 'rooms' => $rooms ] );
     }
