@@ -96,8 +96,6 @@ class RoomsController extends Controller
         $rooms = Room::find()
             ->with( 'lastReservation' )
             ->all();
-        return $this->render( 'lastReservationForEveryRoom', [
-            'rooms' => $rooms
-        ] );
+        return $this->render( 'lastReservationForEveryRoom', [ 'rooms' => $rooms ] );
     }
 }
