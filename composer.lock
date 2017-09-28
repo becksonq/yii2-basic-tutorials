@@ -56,8 +56,7 @@
                 "responsive",
                 "sass",
                 "web"
-            ],
-            "time": "2017-08-11T03:56:35+00:00"
+            ]
         },
         {
             "name": "bower-asset/jquery",
@@ -187,8 +186,7 @@
                 "popperjs",
                 "position",
                 "tooltip"
-            ],
-            "time": "2017-08-29T14:19:10+00:00"
+            ]
         },
         {
             "name": "bower-asset/punycode",
@@ -251,8 +249,7 @@
             },
             "license": [
                 "MIT"
-            ],
-            "time": "2017-09-27T10:22:38+00:00"
+            ]
         },
         {
             "name": "cebe/markdown",
