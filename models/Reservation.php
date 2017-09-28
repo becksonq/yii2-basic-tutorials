@@ -10,10 +10,10 @@ use Yii;
  * @property integer $id
  * @property integer $room_id
  * @property integer $customer_id
- * @property string $price_per_day
- * @property string $date_from
- * @property string $date_to
- * @property string $reservation_date
+ * @property string  $price_per_day
+ * @property string  $date_from
+ * @property string  $date_to
+ * @property string  $reservation_date
  */
 class Reservation extends \yii\db\ActiveRecord
 {
@@ -44,13 +44,23 @@ class Reservation extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'room_id' => 'Room ID',
-            'customer_id' => 'Customer ID',
-            'price_per_day' => 'Price Per Day',
-            'date_from' => 'Date From',
-            'date_to' => 'Date To',
+            'id'               => 'ID',
+            'room_id'          => 'Room ID',
+            'customer_id'      => 'Customer ID',
+            'price_per_day'    => 'Price Per Day',
+            'date_from'        => 'Date From',
+            'date_to'          => 'Date To',
             'reservation_date' => 'Reservation Date',
         ];
+    }
+
+    public function getRoom()
+    {
+        return $this->hasOne(Room::className(), ['id' => 'room_id']);
+    }
+
+    public function getCustomer()
+    {
+        return $this->hasOne(Customer::className(), ['id' => 'customer_id']);
     }
 }

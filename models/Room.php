@@ -7,15 +7,15 @@ use Yii;
 /**
  * This is the model class for table "room".
  *
- * @property integer $id
- * @property integer $floor
- * @property integer $room_number
- * @property integer $has_conditioner
- * @property integer $has_tv
- * @property integer $has_phone
- * @property string $available_from
- * @property string $price_per_day
- * @property string $description
+ * @property integer       $id
+ * @property integer       $floor
+ * @property integer       $room_number
+ * @property integer       $has_conditioner
+ * @property integer       $has_tv
+ * @property integer       $has_phone
+ * @property string        $available_from
+ * @property string        $price_per_day
+ * @property string        $description
  *
  * @property Reservation[] $reservations
  */
@@ -35,11 +35,11 @@ class Room extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [ [ 'floor', 'room_number', 'has_conditioner', 'has_tv', 'has_phone', 'available_from' ], 'required' ],
-            [ [ 'floor', 'room_number', 'has_conditioner', 'has_tv', 'has_phone' ], 'integer' ],
-            [ [ 'available_from' ], 'safe' ],
-            [ [ 'price_per_day' ], 'number' ],
-            [ [ 'description' ], 'string' ],
+            [['floor', 'room_number', 'has_conditioner', 'has_tv', 'has_phone', 'available_from'], 'required'],
+            [['floor', 'room_number', 'has_conditioner', 'has_tv', 'has_phone'], 'integer'],
+            [['available_from'], 'safe'],
+            [['price_per_day'], 'number'],
+            [['description'], 'string'],
         ];
     }
 
@@ -66,11 +66,16 @@ class Room extends \yii\db\ActiveRecord
      */
     public function getReservations()
     {
-        return $this->hasMany( Reservation::className(), [ 'room_id' => 'id' ] );
+        return $this->hasMany(Reservation::className(), ['room_id' => 'id']);
     }
 
     public function getLastReservation()
     {
-        return $this->hasOne( Reservation::className(), [ 'room_id' => 'id' ] )->orderBy( 'id' );
+        return $this->hasOne(Reservation::className(), ['room_id' => 'id'])->orderBy('id');
+    }
+
+    public function getCustomers()
+    {
+        return $this->hasMany(Customer::className(), ['id' => 'customer_id'])->via('reservations');
     }
 }
