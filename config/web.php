@@ -9,7 +9,6 @@ $config = [
     'bootstrap'  => [ 'log' ],
     'components' => [
         'request'      => [
-//            'baseUrl' => '',
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'gYARy9RzEb66G9F-TGSrf0H1B3S95mfl',
         ],
@@ -40,20 +39,22 @@ $config = [
             ],
         ],
         'formatter'    => [
-            'timeZone'       => 'Europe/Moscow',
+            //'timeZone'       => 'Europe/Moscow',
             'dateFormat'     => 'd.MM.Y',
             'timeFormat'     => 'H:mm:ss',
             //'datetimeFormat' => 'd.MM.Y HH:mm',
-            'datetimeFormat' => 'php:Y-m-d H:i:s',
+            'datetimeFormat' => 'php:Y.m.d H:i:s',
         ],
         'db'           => $db,
+        'dbSqlite' => [
+            'class' => 'yii\db\Connection',
+            'dsn' => 'sqlite:'.dirname(__DIR__).'/../db.sqlite',
+        ],
 
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName'  => false,
             'rules'           => [
-//                '' => 'site/index',
-//                '<action>'=>'site/<action>',
             ],
         ],
 
@@ -63,6 +64,7 @@ $config = [
         [
             '@uploadedfilesdir' => '@app/upload'
         ],
+    'timeZone' => 'GMT',
 ];
 
 if ( YII_ENV_DEV ) {

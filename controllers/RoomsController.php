@@ -48,8 +48,15 @@ class RoomsController extends Controller
         if ( ( $model != null ) && $model->load( Yii::$app->request->post() ) && ( $model->save() ) ) {
             return $this->redirect( [ 'detail', 'id' => $model->id ] );
         }
-        
+
         return $this->render( 'update', [ 'model' => $model ] );
+    }
+
+    public function actionDetail( $id )
+    {
+        // 1. Create a new Room instance;
+        $model = Room::findOne( $id );
+        return $this->render( 'detail', [ 'model' => $model ] );
     }
 
     public function actionIndexFiltered()
@@ -62,15 +69,15 @@ class RoomsController extends Controller
             'price_per_day' => [ 'operator' => '', 'value' => '' ],
         ];
 
-        if ( isset( $_POST[ 'SearchFilter' ] ) ) {
+        if ( isset( $_POST['SearchFilter'] ) ) {
 
             $fieldsList = [ 'floor', 'room_number', 'price_per_day' ];
 
             foreach ( $fieldsList as $field ) {
 
-                $fieldOperator = $_POST[ 'SearchFilter' ][ $field ][ 'operator' ];
-                $fieldValue = $_POST[ 'SearchFilter' ][ $field ][ 'value' ];
-                $searchFilter[ $field ] = [ 'operator' => $fieldOperator, 'value' => $fieldValue ];
+                $fieldOperator = $_POST['SearchFilter'][$field]['operator'];
+                $fieldValue = $_POST['SearchFilter'][$field]['value'];
+                $searchFilter[$field] = [ 'operator' => $fieldOperator, 'value' => $fieldValue ];
 
                 if ( $fieldValue != '' ) {
                     $query->andWhere( [
@@ -110,14 +117,16 @@ class RoomsController extends Controller
             $reservations = $roomSelected->reservations;
             $customers = $roomSelected->customers;
 
-        } elseif ( $reservation_id != null ) {
+        }
+        elseif ( $reservation_id != null ) {
             $reservationSelected = Reservation::findOne( $reservation_id );
 
             $rooms = array( $reservationSelected->room );
             $reservations = array( $reservationSelected );
             $customers = array( $reservationSelected->customer );
 
-        } elseif ( $customer_id != null ) {
+        }
+        elseif ( $customer_id != null ) {
             $customerSelected = Customer::findOne( $customer_id );
 
             $rooms = $customerSelected->rooms;
@@ -125,7 +134,8 @@ class RoomsController extends Controller
             $customers = array( $customerSelected );
 
 
-        } else {
+        }
+        else {
             $rooms = Room::find()->all();
             $reservations = Reservation::find()->all();
             $customers = Customer::find()->all();
