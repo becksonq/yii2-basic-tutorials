@@ -10,6 +10,7 @@ use yii\helpers\Html;
 ?>
 
 <h2>Customers</h2>
+
 <?= GridView::widget( [
 		'dataProvider' => $dataProvider,
 		'columns'      => [
@@ -20,11 +21,11 @@ use yii\helpers\Html;
 				[
 						'header'  => 'Reservations',
 						'content' => function ( $model, $key, $index, $column ){
-							return Html::a( 'Reservations',
-									[
-											'reservations/grid',
-											'Reservation[customer_id]' => $model->id
-									] );
+							$title = sprintf( 'Reservations (%d)', $model->reservationsCount );
+							return Html::a( $title, [
+									'reservations/grid',
+									'Reservation[customer_id]' => $model->id
+							] );
 						}
 				],
 				[
