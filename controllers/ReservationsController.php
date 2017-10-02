@@ -7,12 +7,13 @@
 
 namespace app\controllers;
 
-
+use yii;
 use app\models\ReservationSearch;
 use yii\web\Controller;
 use app\models\Reservation;
 use yii\data\ActiveDataProvider;
 use app\models\Room;
+use app\models\Customer;
 
 class ReservationsController extends Controller
 {
@@ -153,10 +154,52 @@ class ReservationsController extends Controller
         ] );
 
         foreach ( $items as $item ) {
-            $content = sprintf( 'reservation #%s at %s', $item->id, date( 'Y-m-d H:i:s', strtotime( $item->reservation_date ) ) );
+            $content = sprintf( 'reservation #%s at %s', $item->id,
+                date( 'Y-m-d H:i:s', strtotime( $item->reservation_date ) ) );
             $output .= \yii\helpers\Html::tag( 'option', $content, [ 'value' => $item->id ] );
         }
-        
+
         return $output;
+    }
+
+    /**
+     * @return string
+     * @throws yii\db\Exception
+     */
+    public function actionCreateCustomerAndReservation()
+    {
+        $customer = new Customer();
+        $reservation = new Reservation();
+        // It is useful to set fake customer_id to reservation model to avoid validation error (because customer_id is mandatory)
+        $reservation->customer_id = 0;
+
+        if (
+            $customer->load( Yii::$app->request->post() )
+            &&
+            $reservation->load( Yii::$app->request->post() )
+            &&
+            $customer->validate()
+            &&
+            $reservation->validate()
+        ) {
+            $dbTrans = Yii::$app->db->beginTransaction();
+            $customerSaved = $customer->save();
+
+            if ( $customerSaved ) {
+                $reservation->customer_id = $customer->id;
+                $reservationSaved = $reservation->save();
+                if ( $reservationSaved ) {
+                    $dbTrans->commit();
+                } else {
+                    $dbTrans->rollback();
+                }
+            } else {
+                $dbTrans->rollback();
+            }
+        }
+        return $this->render( 'createCustomerAndReservation', [
+            'customer'    => $customer,
+            'reservation' => $reservation
+        ] );
     }
 }

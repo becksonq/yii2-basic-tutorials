@@ -11,7 +11,7 @@ use yii\helpers\Url;
 use app\models\Customer;
 use app\models\Reservation;
 
-$urlReservationsByCustomer = Url::to( [ 'reservations/ajax-drop-downlist-by-customer-id' ] );
+$urlReservationsByCustomer = Url::to( [ 'reservations/ajax-drop-down-list-by-customer-id' ] );
 
 $this->registerJs( <<< EOT_JS
 	$(document).on('change', '#reservation-customer_id', function(ev) {
@@ -21,14 +21,14 @@ $this->registerJs( <<< EOT_JS
 			'{$urlReservationsByCustomer}',
 			{ 'customer_id' : customerId },
 			function(data) {
-				data = '<option value="">--- 
-				choose</option>'+data;
+				data = '<option value="">--- choose</option>'+data;
 				$('#reservation-id').html(data);
 			}
 		)
 		ev.preventDefault();
 	});
-	$(document).on('change', '#reservation-id', function(ev) {
+	
+	$(document).on('change', '#reservation-id', function(ev) { 
 		$(this).parents('form').submit();
 		ev.preventDefault();
 	});
@@ -54,7 +54,7 @@ EOT_JS
 				$content = sprintf( 'reservation #%s at %s', $temp->id, date( 'Y-m-d H:i:s', strtotime( $temp->reservation_date ) ) );
 				return $content;
 			} ), [ 'prompt' => '--- choose' ] ); ?>
-	
+
 	<div id="detail">
 		<?php if ( $showDetail ) { ?>
 			<hr/>

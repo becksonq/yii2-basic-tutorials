@@ -31,10 +31,10 @@ class Reservation extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['room_id', 'customer_id', 'price_per_day', 'date_from', 'date_to'], 'required'],
-            [['room_id', 'customer_id'], 'integer'],
-            [['price_per_day'], 'number'],
-            [['date_from', 'date_to', 'reservation_date'], 'safe'],
+            [ [ 'room_id', 'customer_id', 'price_per_day', 'date_from', 'date_to' ], 'required' ],
+            [ [ 'room_id', 'customer_id' ], 'integer' ],
+            [ [ 'price_per_day' ], 'number' ],
+            [ [ 'date_from', 'date_to', 'reservation_date' ], 'safe' ],
         ];
     }
 
@@ -56,11 +56,18 @@ class Reservation extends \yii\db\ActiveRecord
 
     public function getRoom()
     {
-        return $this->hasOne(Room::className(), ['id' => 'room_id']);
+        return $this->hasOne( Room::className(), [ 'id' => 'room_id' ] );
     }
 
     public function getCustomer()
     {
-        return $this->hasOne(Customer::className(), ['id' => 'customer_id']);
+        return $this->hasOne( Customer::className(), [ 'id' => 'customer_id' ] );
+    }
+
+    public function getDescription()
+    {
+        $content = sprintf( 'reservation #%s at %s', $this->id,
+            date( 'Y-m-d H:i:s', strtotime( $this->reservation_date ) ) );
+        return $content;
     }
 }
