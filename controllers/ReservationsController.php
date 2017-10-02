@@ -21,7 +21,7 @@ class ReservationsController extends Controller
         $query = Reservation::find();
         $searchModel = new ReservationSearch();
 
-        if ( isset( $_GET['ReservationSearch'] ) ) {
+        if ( isset( $_GET[ 'ReservationSearch' ] ) ) {
 
             $searchModel->load( \Yii::$app->request->get() );
 
@@ -62,7 +62,7 @@ class ReservationsController extends Controller
         $reservationsQuery = Reservation::find();
         $reservationsSearchModel = new ReservationSearch();
 
-        if ( isset( $_GET['ReservationSearch'] ) ) {
+        if ( isset( $_GET[ 'ReservationSearch' ] ) ) {
             $reservationsSearchModel->load( \Yii::$app->request->get() );
             $reservationsQuery->joinWith( [ 'customer' ] );
             $reservationsQuery->andFilterWhere(
@@ -95,7 +95,7 @@ class ReservationsController extends Controller
         $roomsQuery = Room::find();
         $roomsSearchModel = new Room();
 
-        if ( isset( $_GET['Room'] ) ) {
+        if ( isset( $_GET[ 'Room' ] ) ) {
             $roomsSearchModel->load( \Yii::$app->request->get() );
             $roomsQuery->andFilterWhere( [
                 'id'              => $roomsSearchModel->id,
@@ -125,5 +125,38 @@ class ReservationsController extends Controller
             'roomsDataProvider'        => $roomsDataProvider,
             'roomsSearchModel'         => $roomsSearchModel,
         ] );
+    }
+
+    public function actionDetailDependentDropdown()
+    {
+        $showDetail = false;
+        $model = new Reservation();
+
+        if ( isset( $_POST[ 'Reservation' ] ) ) {
+            $model->load( Yii::$app->request->post() );
+            if ( isset( $_POST[ 'Reservation' ][ 'id' ] ) && ( $_POST[ 'Reservation' ][ 'id' ] != null ) ) {
+                $model = Reservation::findOne( $_POST[ 'Reservation' ][ 'id' ] );
+                $showDetail = true;
+            }
+        }
+        return $this->render( 'detailDependentDropdown', [
+            'model'      => $model,
+            'showDetail' => $showDetail
+        ] );
+    }
+
+    public function actionAjaxDropDownListByCustomerId( $customer_id )
+    {
+        $output = '';
+        $items = Reservation::findAll( [
+            'customer_id' => $customer_id
+        ] );
+
+        foreach ( $items as $item ) {
+            $content = sprintf( 'reservation #%s at %s', $item->id, date( 'Y-m-d H:i:s', strtotime( $item->reservation_date ) ) );
+            $output .= \yii\helpers\Html::tag( 'option', $content, [ 'value' => $item->id ] );
+        }
+        
+        return $output;
     }
 }
