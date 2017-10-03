@@ -13,12 +13,33 @@ use app\models\Room;
 use yii\web\UploadedFile;
 use app\models\Reservation;
 use app\models\Customer;
+use yii\filters\AccessControl;
 
 class RoomsController extends Controller
 {
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow'   => true,
+                        'actions' => [ 'create' ],
+                        'roles'   => [ 'operator' ],
+                    ],
+                    [
+                        'allow'   => true,
+                        'actions' => [ 'index' ],
+                    ],
+                ],
+            ],
+        ];
+    }
+    
     public function actionIndex()
     {
-        $sql = 'SELECT * FROM rooms ORDER BY id ASC';
+        $sql = 'SELECT * FROM room ORDER BY id ASC';
         $db = Yii::$app->db;
         $rooms = $db->createCommand( $sql )->queryAll();
 // same of
