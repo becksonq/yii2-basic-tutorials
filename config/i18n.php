@@ -15,7 +15,7 @@ return [
     'help' => null,
     'sourcePath' => '@yii',
     'messagePath' => '@yii/messages',
-    'languages' => [],
+    'languages' => ['en', 'it', 'ru'],
     'translator' => 'Yii::t',
     'sort' => false,
     'overwrite' => true,
@@ -30,6 +30,7 @@ return [
         '.hgkeep',
         '/messages',
         '/BaseYii.php',
+        '/vendor',
     ],
     'only' => [
         '*.php',

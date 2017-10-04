@@ -65,6 +65,8 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $message = \Yii::t('app', 'this message must be translated' );
+        
         return $this->render( 'index' );
     }
 
